@@ -38,5 +38,6 @@ examples = [
     "seaborn",
 ]
 
-[tool.setuptools]
-py-modules = ["NeuroRNN", "utils"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["neurosimtools*"]

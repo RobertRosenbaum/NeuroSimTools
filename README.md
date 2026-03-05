@@ -15,13 +15,21 @@ pip install .
 pip install git+https://github.com/YOUR_USERNAME/NeuroSimTools.git
 ```
 
-This installs `NeuroRNN` and `utils` as importable modules. Core dependencies (numpy, torch) are installed automatically. A virtual environment is recommended: `python -m venv venv`, then `source venv/bin/activate` (Unix) or `venv\Scripts\activate` (Windows).
+This installs the `neurosimtools` package. Core dependencies (numpy, torch) are installed automatically.
+
+**Usage:**
+```python
+from neurosimtools import RateModel, SpikingModel, GetBlockErdosRenyi, ToNP
+# or import submodules:
+from neurosimtools.NeuroRNN import RateModel, Conv2dRateModel
+from neurosimtools.utils import GetBlockErdosRenyi
+``` A virtual environment is recommended: `python -m venv venv`, then `source venv/bin/activate` (Unix) or `venv\Scripts\activate` (Windows).
 
 **To run the example notebooks:**
 ```bash
 pip install .[examples]
 ```
-This adds matplotlib, jupyter, and seaborn. The notebooks (e.g., `SimpleRateModelExample.ipynb`) are in the repo for reference and do not need to be installed—clone the repo and open them in Jupyter or VSCode.
+This adds matplotlib, jupyter, and seaborn. The notebooks (e.g., `examples/SimpleRateModelExample.ipynb`) are in the repo for reference and do not need to be installed—clone the repo and open them in Jupyter or VSCode.
 
 # Rate network model
 
@@ -83,7 +91,7 @@ $$
 
 where $x_n$ is the input on time step $n$, $J$ is the recurrent connectivity matrix, and $J_x$ is the input or ``read-in'' matrix. 
 
-For another example (simulating continuous time dynamics), see `RateModelExamples.ipynb`
+For another example (simulating continuous time dynamics), see `examples/SimpleRateModelExample.ipynb`
 
 ## Model details
 
@@ -399,7 +407,7 @@ The padding and stride for the readin and readout layers.
 Note that the recurrent layer always has `padding='same'` and `stride=1` so there is no 
 option to set the stride and padding for the recurrent layer.
 
-All other inputs to `__init__` are the same as for `NeuroRNN`
+All other inputs to `__init__` are the same as for `RateModel`
 
 
 ## Forward pass
@@ -411,11 +419,11 @@ A forward pass is completed by calling:
 y = model(x, Nt = None, initial_state = 'auto', return_time_series = True, store_hidden_history = True)
 ```
 
-All inputs to the forward pass are perfectly analogous to those in `NeuroRNN` objects.
+All inputs to the forward pass are perfectly analogous to those in `RateModel` objects.
 
 ## Member variables
 
-All member variables are analogous to those  in `NeuroRNN` objects except for 
+All member variables are analogous to those in `RateModel` objects except for 
 `self.in_channels`, `self.rec_channels`, and `self.out_channels` which are self-explanatory (number of channels in each layer)
 
 
@@ -432,7 +440,7 @@ SimResults = model(x0, dt, x=None, T=None, initial_V='random', initial_Y='zero',
 ```
 
 
-See `EISpikingModelExample.ipynb` for an example of a randomly connected excitatory-inhibitory network of EIF model neurons.
+See `examples/EISpikingModelExample.ipynb` for an example of a randomly connected excitatory-inhibitory network of EIF model neurons.
 
 ## Model details
 
