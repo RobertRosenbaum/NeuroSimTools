@@ -2,7 +2,8 @@
 numpy
 torch
 
-# Optional: for running example notebooks
+# Optional: for running example notebooks (or use: pip install .[examples])
+# ipykernel
 # matplotlib
 # jupyter
 # seaborn
