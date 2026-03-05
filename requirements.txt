@@ -1,0 +1,8 @@
+# Core dependencies (required for import)
+numpy
+torch
+
+# Optional: for running example notebooks
+# matplotlib
+# jupyter
+# seaborn
