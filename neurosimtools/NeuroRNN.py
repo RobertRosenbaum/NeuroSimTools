@@ -140,6 +140,9 @@ class RateModel(nn.Module):
         self.hidden_state = None
         self.hidden_state_history = None
 
+        # Initialize rate vector
+        self.rate = None
+        self.rate_history = None
 
     # Forward pass.
     # If Nt==None then the second dimension of x is assumed to be time.
@@ -200,10 +203,13 @@ class RateModel(nn.Module):
                     if return_time_series or store_hidden_history:
                         hidden_state_history[:, i, :] = self.hidden_state
 
+            self.rate = self.hidden_state
             if store_hidden_history:
                 self.hidden_state_history = hidden_state_history
+                self.rate_history = hidden_state_history
             else:
                 self.hidden_state_history = None
+                self.rate_history = None
 
             if return_time_series:
                 return self.output_layer(hidden_state_history)
@@ -225,10 +231,13 @@ class RateModel(nn.Module):
                     if return_time_series or store_hidden_history:
                         hidden_state_history[:, i, :] = self.hidden_state
 
+            self.rate = self.f(self.hidden_state)
             if store_hidden_history:
                 self.hidden_state_history = hidden_state_history
+                self.rate_history = self.f(hidden_state_history)
             else:
                 self.hidden_state_history = None
+                self.rate_history = None
 
             if return_time_series:
                 return self.output_layer(self.f(hidden_state_history))

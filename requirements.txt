@@ -6,4 +6,5 @@ torch
 # ipykernel
 # matplotlib
 # jupyter
+# scipy
 # seaborn

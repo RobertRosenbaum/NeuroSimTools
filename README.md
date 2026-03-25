@@ -52,7 +52,7 @@ or
 
 ```(batch_size, N_recurrent)```
 
-In the second case, `x` interpreted as time-constant (same input at each time) and `Nt` must be passed into the forward pass. 
+In the second case, `x` interpreted as time-independent (same input at each time) and `Nt` must be passed into the forward pass. 
 In the first case, `Nt` is inferred from `x` and should not be passed. 
 Here, `Nt` is the number of time steps and `N_recurrent` is the number of hidden units in the recurrent layer.
 
