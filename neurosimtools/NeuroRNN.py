@@ -658,7 +658,7 @@ class SpikingModel(nn.Module):
         SimResults['r'] *= (dt/(T-Tburn))
 
         if RecordSandY:
-            SimResults['S'] *= (dt/NdtRecord)
+            SimResults['S'] *= (dt/dtRecord)
             SimResults['Y'] *= (1/NdtRecord)
 
         return SimResults

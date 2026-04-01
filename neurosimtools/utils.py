@@ -139,6 +139,21 @@ def ConvWithExp(x,tau,dt):
   Y = Y.reshape(batch_size, N, Nt).permute(0, 2, 1)
   return Y
 
+# Convolve signals with an exponential kernel
+def ConvWithGaussian(x,tau,dt):
+  if len(x.shape)!=3:
+    raise Exception('x should be 3dim with shape (batch_size,Nt,N)')
+  Nt = x.shape[1]
+  batch_size = x.shape[0]
+  N = x.shape[2]
+  KernelTime = torch.arange(int(sigma * 3), -int(sigma * 3) - dt, -dt).to(x.device)
+  GaussianKernel = torch.zeros(1, 1, len(KernelTime)).to(x.device)
+  GaussianKernel[0, 0, :] = (1 / (sigma * np.sqrt(2 * np.pi))) * torch.exp(-KernelTime ** 2 / (2 * sigma ** 2))
+  Y = torch.nn.functional.conv1d(x.permute(0, 2, 1).reshape(batch_size * N, 1, Nt), GaussianKernel, padding='same') * dt
+  Y = Y.reshape(batch_size, N, Nt).permute(0, 2, 1)
+  return Y
+
+
 
 # Returns 2D array of spike counts from sparse spike train, s.
 # Counts spikes over window size winsize.
