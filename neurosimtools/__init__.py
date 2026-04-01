@@ -17,6 +17,8 @@ from neurosimtools.utils import (
     GetSpikeCounts,
     ToNP,
     GetOneAngle,
+    SimpleDownsample,
+    ConvWithGaussian,
 )
 
 __all__ = [
@@ -32,4 +34,6 @@ __all__ = [
     "GetSpikeCounts",
     "ToNP",
     "GetOneAngle",
+    "SimpleDownsample",
+    "ConvWithGaussian",
 ]

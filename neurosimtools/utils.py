@@ -154,6 +154,17 @@ def ConvWithGaussian(x,tau,dt):
   return Y
 
 
+# Simple downsample by integer factor n. Use n=int(dtnew/dtold)
+def SimpleDownsample(self, x, Nt, n):
+    if n<=0 or not isinstance(n,int):
+        raise Exception('n should be a positive integer.')
+    if Nt%n!=0:
+        raise Exception('Nt should be divisible by n.')
+    if len(x.shape)!=3:
+        raise Exception('x should be 3dim with shape (batch_size,Nt,N)')
+    batch_size = x.shape[0]
+    N = x.shape[2]
+    return x.reshape(1,-1,n,N).mean(dim=2)
 
 # Returns 2D array of spike counts from sparse spike train, s.
 # Counts spikes over window size winsize.
