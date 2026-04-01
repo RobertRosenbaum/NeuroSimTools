@@ -105,8 +105,14 @@ def PoissonProcess(r,dt,batch_size=1,N=1,T=None,rep='sparse'):
   if np.ndim(r)==0:
     Nt = int(T / dt)
     s = np.random.binomial(1,r*dt,(batch_size,Nt,N))/dt
+  elif np.ndim(r)==1:
+    Nt = int(T / dt)
+    s = np.random.binomial(1,r*dt,(batch_size,Nt,N))/dt
+  elif np.ndim(r)==2:
+    Nt = int(T / dt)
+    s = np.random.binomial(1,r*dt,(batch_size,Nt,N))/dt
   else:
-    raise Exception('Not implemented yet.')
+    raise Exception('r should be a scalar, 1D array, or 2D array.')
 
   if rep == 'sparse':
     [I, J] = np.nonzero(s)
