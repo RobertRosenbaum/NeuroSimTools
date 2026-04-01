@@ -155,13 +155,18 @@ def ConvWithGaussian(x,tau,dt):
 
 
 # Simple downsample by integer factor n. Use n=int(dtnew/dtold)
-def SimpleDownsample(self, x, Nt, n):
+# x is a 3dim tensor with shape (batch_size,Nt,N)
+# n is an integer
+# returns a 3dim tensor with shape (batch_size,Nt/n,N)
+# Nt should be divisible by n.
+def SimpleDownsample(self, x, n):
     if n<=0 or not isinstance(n,int):
         raise Exception('n should be a positive integer.')
-    if Nt%n!=0:
-        raise Exception('Nt should be divisible by n.')
     if len(x.shape)!=3:
         raise Exception('x should be 3dim with shape (batch_size,Nt,N)')
+    Nt = x.shape[1]
+    if Nt%n!=0:
+        raise Exception('Nt should be divisible by n.')    
     batch_size = x.shape[0]
     N = x.shape[2]
     return x.reshape(1,-1,n,N).mean(dim=2)
